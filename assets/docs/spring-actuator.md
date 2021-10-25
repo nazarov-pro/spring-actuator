@@ -14,14 +14,44 @@ Spring Actuator helps to manage and monitor the application(production ready) by
 Auditing, health, and metrics gathering can also be automatically applied to the application.
 ``
 
+Note: All timestamps that are consumed by the endpoints, either as query parameters or in the request body, must be
+formatted as an offset date and time as specified in **ISO 8601**.
+
 ## 2. Endpoints
+
+
+- `auditevents` Exposes audit events information for the current application. Requires an AuditEventRepository bean.
+- `beans` Displays a complete list of all the Spring beans in your application.
+- `caches` Exposes available caches.
+- `conditions` Shows the conditions that were evaluated on configuration and auto-configuration classes and the reasons why they did or did not match.
+- `configprops` Displays a collated list of all @ConfigurationProperties.
+- `env` Exposes properties from Spring’s ConfigurableEnvironment.
+- `flyway` Shows any Flyway database migrations that have been applied. Requires one or more Flyway beans.
+- `health` Shows application health information.
+- `httptrace` Displays HTTP trace information (by default, the last 100 HTTP request-response exchanges). Requires an HttpTraceRepository bean.
+- `info` Displays arbitrary application info.
+- `integrationgraph` Shows the Spring Integration graph. Requires a dependency on spring-integration-core.
+- `loggers` Shows and modifies the configuration of loggers in the application.
+- `liquibase` Shows any Liquibase database migrations that have been applied. Requires one or more Liquibase beans.
+- `metrics` Shows ‘metrics’ information for the current application.
+- `mappings` Displays a collated list of all @RequestMapping paths.
+- `scheduledtasks` Displays the scheduled tasks in your application.
+- `sessions` Allows retrieval and deletion of user sessions from a Spring Session-backed session store. Requires a
+  Servlet-based web application using Spring Session.
+- `shutdown` Lets the application be gracefully shutdown. Disabled by default.
+- `startup` Shows the startup steps data collected by the ApplicationStartup. Requires the SpringApplication to be configured with a BufferingApplicationStartup.
+- `threaddump` Performs a thread dump.
+- `heapdump` Returns an hprof heap dump file. Requires a HotSpot JVM.
+- `jolokia` Exposes JMX beans over HTTP (when Jolokia is on the classpath, not available for WebFlux). Requires a
+  dependency on jolokia-core.
+- `logfile` Returns the contents of the logfile (if logging.file.name or logging.file.path properties have been set).
+  Supports the use of the HTTP Range header to retrieve part of the log file’s content.
+- `prometheus` Exposes metrics in a format that can be scraped by a Prometheus server. Requires a dependency on
+  micrometer-registry-prometheus.
 
 Base path for actuator endpoints is configurable by `management.endpoints.web.base-path` property (default is 
 `/actuator`), server port also configured by `management.server.port=8081` property. (**server address**, **ssl 
 certification** also configurable).
-
-All timestamps that are consumed by the endpoints, either as query parameters or in the request body, must be 
-formatted as an offset date and time as specified in **ISO 8601**.
 
 By default, all endpoints except for **shutdown** are enabled. To configure the enablement of an endpoint, use its 
 `management.endpoint.<id>.enabled` property. The following example enables the **shutdown** endpoint: 
@@ -86,10 +116,12 @@ Shutdown Lifecycle
 Note: When you configure readiness/liveness probe also consider `spring.lifecycle.timeout-per-shutdown-phase` make 
 health checks less than it (default is 30 seconds).
 
-### 2.1. Audit Events `/auditevents`
+### Audit Events `/auditevents`
 
 Exposes audit events information for the current application. Requires an **AuditEventRepository** bean (by default 
 **InMemoryAuditEventRepository** will be used).
+
+## Metrics `/metrics`
 
 Supported monitoring systems metrics
 
@@ -112,6 +144,9 @@ Supported monitoring systems metrics
 - StatsD
 - Wavefront
 
+You can also create your own metrics, check micrometer documentation.
+
 Credits:
 - [Spring Boot Actuator Docs](https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html)
-- [Actuator API More Detailed](https://docs.spring.io/spring-boot/docs/2.5.6/actuator-api/htmlsingle/)
+- [Actuator API Docs](https://docs.spring.io/spring-boot/docs/2.5.6/actuator-api/htmlsingle/)
+- [Micrometer Docs](https://micrometer.io/docs/concepts)

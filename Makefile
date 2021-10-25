@@ -1,8 +1,11 @@
 set-up:
 	@docker network create monitoring
 
+clean:
+	@docker network rm monitoring
+
 spring-actuator-build:
-	@./gradlew clean build -x test
+	@./gradlew clean build
 
 spring-actuator-up: spring-actuator-build
 	@docker-compose -f configs/spring-actuator/docker-compose.yaml up --build --force-recreate -d
@@ -16,7 +19,7 @@ prometheus-up:
 	@docker-compose -f configs/prometheus/docker-compose.yaml up --build --force-recreate -d
 
 prometheus-down:
-	@docker-compose -f configs/prometheus/docker-compose.yaml up --build --force-recreate -d
+	@docker-compose -f configs/prometheus/docker-compose.yaml down
 
 grafana-up:
 	@docker-compose -f configs/grafana/docker-compose.yaml up --build --force-recreate -d
