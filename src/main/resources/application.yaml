@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+#  h2:
+#    console:
+#      enabled: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+  main:
+    banner-mode: off
+  application:
+    name: spring-actuator
+
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+#  endpoint:
+#    info:
+#      enabled: true
+#    prometheus:
+#      enabled: true
+#    auditevents:
+#      enabled: true
+
+
+  endpoints:
+    jmx:
+      exposure:
+        exclude: "*"
+
+    web:
+      base-path: /actuator
+
+      exposure:
+        include: "*"

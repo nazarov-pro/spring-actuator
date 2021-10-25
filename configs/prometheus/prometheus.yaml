@@ -1,0 +1,9 @@
+scrape_configs:
+  - job_name: 'Spring Actuator PoC'
+    scrape_interval: 5s
+#    scheme: http
+#    tls_config:
+#      insecure_skip_verify: true
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['spring-actuator:8080']
