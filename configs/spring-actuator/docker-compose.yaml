@@ -7,6 +7,9 @@ services:
       dockerfile: configs/spring-actuator/Dockerfile
     ports:
       - '8080:8080'
+    environment:
+      ELASTIC_ENABLED: ${ELASTIC_ENABLED:-false}
+      PROMETHEUS_ENABLED: ${PROMETHEUS_ENABLED:-false}
     networks:
       monitoring:
         aliases:
