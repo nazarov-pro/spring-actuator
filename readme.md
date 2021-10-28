@@ -1,5 +1,11 @@
 # Spring Actuator Demo
 
+**Spring boot actuator** module provides metrics for prometheus, elastic search or etc. using micrometer facade.
+
+**Micrometer** provides a simple facade over the instrumentation clients for the most popular monitoring systems, allowing you to instrument your JVM-based application code without vendor lock-in.
+
+[Download](./assets/presentation/spring-actuator.pptx) Spring Boot Actuator Presentation.
+
 ## 1. Requirements
 
 - Unix/Linux OS
@@ -26,7 +32,7 @@ High level diagram:
 ### 2.3. Using ELK Stack
 
 **All applications** send metrics to **elastic search's** specific index periodically (configured in app), **elastic search** 
-indexing and storing data, **kibana** connecting to **elasticsearch** and visualize metrics.
+indexing and storing data, **kibana** connecting to **elastic search** and visualize metrics.
 
 High level diagram:
 
